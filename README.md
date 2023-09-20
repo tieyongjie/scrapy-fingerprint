@@ -3,6 +3,8 @@
 ## Description
 Scrapy - fingerprint is based on [curl_cffi] (https://github.com/yifeikong/curl_cffi), which is used in the packaging of scrapy TLS or JA3 fingerprints of simulated browser requests
 
+**github**:https://github.com/tieyongjie/scrapy-fingerprint
+
 
 
 ## Installation
@@ -42,3 +44,11 @@ yield FingerprintRequest(url=url, callback=self.parse,impersonate="chrome107")
 ```
 
 impersonate **defaults** to random browser fingerprints
+
+POST  request
+
+```python
+payload = {}
+yield FingerprintRequest(url, method='POST', callback=self.parse,data=json.dumps(payload))
+```
+

@@ -47,8 +47,8 @@ class FingerprintMiddleware(object):
 
     async def _process_request(self, request, spider):
         fingerprint_meta = request.meta.get('fingerprint') or {}
-        impersonate = fingerprint_meta.get("impersonate", random.choice(
-            ["chrome99", "chrome101", "chrome110", "edge99", "edge101", "chrome107"]))
+        impersonate = fingerprint_meta.get("impersonate") if fingerprint_meta.get("impersonate") else random.choice(
+            ["chrome99", "chrome101", "chrome110", "edge99", "edge101", "chrome107"])
         # impersonate = "chrome107"
         async with AsyncSession() as s:
             if fingerprint_meta.get("method") == "GET":

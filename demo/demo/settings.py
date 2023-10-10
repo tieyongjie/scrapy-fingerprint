@@ -50,10 +50,9 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-   # "demo.middlewares.DemoDownloaderMiddleware": 543,
-   'scrapy_fingerprint.fingerprintmiddlewares.FingerprintMiddleware': 543,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#    "demo.middlewares.DemoDownloaderMiddleware": 543,
+# }
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -88,9 +87,14 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 
+DOWNLOAD_HANDLERS = {
+    'http': ('scrapy_fingerprint.fingerprint_download_handler.'
+             'FingerprintDownloadHandler'),
+    'https': ('scrapy_fingerprint.fingerprint_download_handler.'
+              'FingerprintDownloadHandler'),
+}
+
 # Set settings whose default value is deprecated to a future-proof value
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
-
-

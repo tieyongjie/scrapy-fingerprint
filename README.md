@@ -36,10 +36,12 @@ DOWNLOAD_HANDLERS = {
 }
 ```
 
-You can use FingerprintRequest to make a request with a browser fingerprint
+You can use scrapy.Request to make a request with a browser fingerprint
 
 ```python
-yield FingerprintRequest(url=url, callback=self.parse)
+import scrapy
+
+yield scrapy.Request(url=url, callback=self.parse)
 ```
 
 You can also add impersonate in FingerprintRequest

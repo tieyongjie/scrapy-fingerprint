@@ -15,7 +15,7 @@ pip install scrapy_fingerprint
 
 ## Usage
 
-After creating the scrapy project, add the proxy by adding the following configuration in setting.py
+After creating the scrapy project, add the proxy by adding the following configuration in settings.py
 
 ```python
 # proxy 链接配置
@@ -25,30 +25,32 @@ PROXY_USER = '******'
 PROXY_PASS = '******'
 ```
 
-And you also need to enable FingerprintMiddleware in `DOWNLOADER_MIDDLEWARES`:
+And you also need to enable download handler in `DOWNLOAD_HANDLERS` in settings.py
 
 ```bash
-'scrapy_fingerprint.fingerprintmiddlewares.FingerprintMiddleware': 543,
+DOWNLOAD_HANDLERS = {
+    'http': ('scrapy_fingerprint.fingerprint_download_handler.'
+             'FingerprintDownloadHandler'),
+    'https': ('scrapy_fingerprint.fingerprint_download_handler.'
+              'FingerprintDownloadHandler'),
+}
 ```
 
-You can use FingerprintRequest to make a request with a browser fingerprint
+You can use scrapy.Request to make a request with a browser fingerprint
 
 ```python
-yield FingerprintRequest(url=url, callback=self.parse)
+import scrapy
+
+yield scrapy.Request(url=url, callback=self.parse)
 ```
 
 You can also add impersonate in FingerprintRequest
 
 ```python
-yield FingerprintRequest(url=url, callback=self.parse,impersonate="chrome107")
+import scrapy
+
+yield scrapy.Request(url, callback=self.parse, meta={"impersonate": "chrome107"})
 ```
 
 impersonate **defaults** to random browser fingerprints
-
-POST  request
-
-```python
-payload = {}
-yield FingerprintRequest(url, method='POST', callback=self.parse,data=json.dumps(payload))
-```
 

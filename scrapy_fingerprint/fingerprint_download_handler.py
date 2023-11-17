@@ -38,6 +38,15 @@ class FingerprintDownloadHandler:
                 "http": proxy_meta,
                 "https": proxy_meta,
             }
+        elif self.server:
+            proxy_meta = "http://%(host)s:%(port)s" % {
+                "host": self.server,
+                "port": self.proxy_port,
+            }
+            self.proxies = {
+                "http": proxy_meta,
+                "https": proxy_meta,
+            }
         else:
             self.proxies = None
 
